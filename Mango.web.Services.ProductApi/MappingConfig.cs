@@ -14,6 +14,7 @@ namespace Mango.Services.ProductApi
                 config.CreateMap<Product, ProductDto>();
             });
 
+
             return mappingConfig;
         }
 
