@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.ProductApi.Controllers
 {
+    [Route("api/products")]
     public class ProductApiController : Controller
     {
         private IProductRepository _productRepository;
