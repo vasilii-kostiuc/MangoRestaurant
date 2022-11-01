@@ -6,12 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient();
 SD.ProductApiBase = builder.Configuration["ServiceUrls:ProductApi"];
 builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.
