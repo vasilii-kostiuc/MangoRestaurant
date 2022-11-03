@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -22,13 +21,17 @@ IIdentityServerBuilder identittyServerBuilder = builder.Services.AddIdentityServ
     options.Events.RaiseFailureEvents = true;
     options.Events.RaiseSuccessEvents = true;
     options.EmitStaticAudienceClaim = true;
-}).AddInMemoryIdentityResources(SD.IdentityResources)
-.AddInMemoryApiScopes(SD.ApiScopes)
-.AddInMemoryClients(SD.Clients)
-.AddAspNetIdentity<ApplicationUser>();
+})
+    .AddInMemoryIdentityResources(SD.IdentityResources)
+    .AddInMemoryApiScopes(SD.ApiScopes)
+    .AddInMemoryClients(SD.Clients)
+    .AddAspNetIdentity<ApplicationUser>();
 identittyServerBuilder.AddDeveloperSigningCredential();
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
+builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
