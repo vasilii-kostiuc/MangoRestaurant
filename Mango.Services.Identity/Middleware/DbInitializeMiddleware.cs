@@ -17,7 +17,7 @@ namespace Mango.Services.Identity.Middleware
 
         public async Task Invoke(HttpContext context, IDbInitializer dbInitializer)
         {
-            dbInitializer.Initialize();
+            //dbInitializer.Initialize();
             await _next.Invoke(context);
         }
     }
