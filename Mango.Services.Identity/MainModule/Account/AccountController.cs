@@ -119,11 +119,13 @@ namespace IdentityServerHost.Quickstart.UI
 
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                var user = await _userManager.FindByEmailAsync(model.Username);
+                
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password,
                     model.RememberLogin, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByNameAsync(model.Username);
+                    user = await _userManager.FindByEmailAsync(model.Username);
                     await _events.RaiseAsync(
                         new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName,
                             clientId: context?.Client.ClientId));
@@ -186,7 +188,8 @@ namespace IdentityServerHost.Quickstart.UI
         public async Task<IActionResult> Logout(LogoutInputModel model)
         {
             // build a model so the logged out page knows what to display
-            var vm = await BuildLoggedOutViewModelAsync(model.LogoutId);
+            var vm = await BuildLoggedOutViewModelAsync(model.
+                LogoutId);
 
             if (User?.Identity.IsAuthenticated == true)
             {

@@ -16,7 +16,7 @@ builder.Services.AddAuthentication("Bearer")
         options.Authority = "https://localhost:7239/";
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
-            ValidateAudience = true,
+            ValidateAudience = false,
         };
     });
 
@@ -78,7 +78,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

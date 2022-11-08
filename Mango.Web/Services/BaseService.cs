@@ -1,4 +1,5 @@
-﻿using Mango.Web.Models;
+﻿using System.Net.Http.Headers;
+using Mango.Web.Models;
 using Mango.Web.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
@@ -46,6 +47,12 @@ namespace Mango.Web.Services
                     default:
                         message.Method = HttpMethod.Get;
                         break;
+                }
+
+                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                {
+                    client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
                 }
                 apiResponse = await client.SendAsync(message);
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
