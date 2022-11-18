@@ -54,8 +54,7 @@ namespace Mango.Services.ProductApi.Controllers
 
             return _response;
         }
-
-
+        
         [Authorize]
         [HttpPost]
         public async Task<object> Post([FromBody] ProductDto productDto)
