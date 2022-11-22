@@ -14,7 +14,7 @@ public class CartService : BaseService, ICartService
         return await this.SendAsync<T>(new ApiRequest()
         {
             ApiType = SD.ApiType.GET,
-            ApiUrl = SD.ShoppinCartApiBase + "/api/cart/GetCart" + userId,
+            ApiUrl = SD.ShoppinCartApiBase + "/api/cart/GetCart/" + userId,
             AccessToken = token
         });
     }
@@ -47,7 +47,7 @@ public class CartService : BaseService, ICartService
         {
             ApiType = SD.ApiType.POST,
             Data = cartId,
-            ApiUrl = SD.ShoppinCartApiBase + "/api/cart/UpdateCart",
+            ApiUrl = SD.ShoppinCartApiBase + "/api/cart/RemoveCart",
             AccessToken = token
         });
     }
